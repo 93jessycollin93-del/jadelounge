@@ -79,7 +79,14 @@ export default function Communities() {
       return;
     }
     setSubmitting(true);
-    const { error } = await supabase.from("communities").insert({ ...parsed.data, owner_id: user.id });
+    const insertPayload = {
+      name: parsed.data.name,
+      slug: parsed.data.slug,
+      description: parsed.data.description ?? null,
+      visibility: parsed.data.visibility,
+      owner_id: user.id,
+    };
+    const { error } = await supabase.from("communities").insert(insertPayload as never);
     setSubmitting(false);
     if (error) {
       toast({ title: "Could not create community", description: error.message, variant: "destructive" });
