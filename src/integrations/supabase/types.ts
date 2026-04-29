@@ -613,6 +613,69 @@ export type Database = {
         }
         Relationships: []
       }
+      video_assets: {
+        Row: {
+          captions_url: string | null
+          created_at: string
+          duration_seconds: number | null
+          error_message: string | null
+          height: number | null
+          hls_url: string | null
+          id: string
+          mediaconvert_job_id: string | null
+          mp4_url: string | null
+          owner_id: string
+          post_id: string | null
+          poster_url: string | null
+          preview_url: string | null
+          source_key: string
+          status: Database["public"]["Enums"]["video_asset_status"]
+          thumbnails_vtt_url: string | null
+          updated_at: string
+          width: number | null
+        }
+        Insert: {
+          captions_url?: string | null
+          created_at?: string
+          duration_seconds?: number | null
+          error_message?: string | null
+          height?: number | null
+          hls_url?: string | null
+          id?: string
+          mediaconvert_job_id?: string | null
+          mp4_url?: string | null
+          owner_id: string
+          post_id?: string | null
+          poster_url?: string | null
+          preview_url?: string | null
+          source_key: string
+          status?: Database["public"]["Enums"]["video_asset_status"]
+          thumbnails_vtt_url?: string | null
+          updated_at?: string
+          width?: number | null
+        }
+        Update: {
+          captions_url?: string | null
+          created_at?: string
+          duration_seconds?: number | null
+          error_message?: string | null
+          height?: number | null
+          hls_url?: string | null
+          id?: string
+          mediaconvert_job_id?: string | null
+          mp4_url?: string | null
+          owner_id?: string
+          post_id?: string | null
+          poster_url?: string | null
+          preview_url?: string | null
+          source_key?: string
+          status?: Database["public"]["Enums"]["video_asset_status"]
+          thumbnails_vtt_url?: string | null
+          updated_at?: string
+          width?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -666,6 +729,13 @@ export type Database = {
       reaction_type: "like" | "love" | "celebrate" | "insightful" | "curious"
       report_status: "open" | "reviewing" | "resolved" | "dismissed"
       report_target: "post" | "comment" | "profile" | "community"
+      video_asset_status:
+        | "uploaded"
+        | "submitted"
+        | "processing"
+        | "ready"
+        | "failed"
+        | "canceled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -816,6 +886,14 @@ export const Constants = {
       reaction_type: ["like", "love", "celebrate", "insightful", "curious"],
       report_status: ["open", "reviewing", "resolved", "dismissed"],
       report_target: ["post", "comment", "profile", "community"],
+      video_asset_status: [
+        "uploaded",
+        "submitted",
+        "processing",
+        "ready",
+        "failed",
+        "canceled",
+      ],
     },
   },
 } as const
