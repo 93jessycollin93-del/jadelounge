@@ -1,5 +1,5 @@
 import { Outlet, Link, NavLink, useNavigate } from "react-router-dom";
-import { Home, Compass, Users2, Bell, MessageCircle, ShieldCheck, User, LogOut, Search, Plus } from "lucide-react";
+import { Home, Compass, Users2, Bell, MessageCircle, ShieldCheck, User, LogOut, Search, Plus, UserPlus } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
@@ -14,10 +14,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
+import { useUnreadNotifications } from "@/hooks/useUnreadNotifications";
+import { useUnreadMessages } from "@/hooks/useUnreadMessages";
 
 const NAV = [
   { to: "/feed", label: "Home", icon: Home },
   { to: "/explore", label: "Explore", icon: Compass },
+  { to: "/friends", label: "Friends", icon: UserPlus },
   { to: "/communities", label: "Communities", icon: Users2 },
   { to: "/messages", label: "Messages", icon: MessageCircle },
   { to: "/notifications", label: "Notifications", icon: Bell },
@@ -26,6 +29,14 @@ const NAV = [
 export function AppShell() {
   const { profile, isModerator, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
+  const unreadNotifs = useUnreadNotifications();
+  const unreadMsgs = useUnreadMessages();
+
+  const badgeFor = (to: string): number => {
+    if (to === "/notifications") return unreadNotifs;
+    if (to === "/messages") return unreadMsgs;
+    return 0;
+  };
 
   const initials = (profile?.display_name ?? "?")
     .split(" ")
@@ -101,23 +112,31 @@ export function AppShell() {
         {/* Sidebar (desktop) */}
         <aside className="hidden md:block">
           <nav className="sticky top-20 flex flex-col gap-1">
-            {NAV.map(({ to, label, icon: Icon }) => (
-              <NavLink
-                key={to}
-                to={to}
-                className={({ isActive }) =>
-                  cn(
-                    "flex items-center gap-3 px-3 h-10 rounded-xl text-sm font-medium transition",
-                    isActive
-                      ? "bg-primary-muted text-primary dark:bg-primary/15"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  )
-                }
-              >
-                <Icon className="h-4 w-4" />
-                {label}
-              </NavLink>
-            ))}
+            {NAV.map(({ to, label, icon: Icon }) => {
+              const badge = badgeFor(to);
+              return (
+                <NavLink
+                  key={to}
+                  to={to}
+                  className={({ isActive }) =>
+                    cn(
+                      "flex items-center gap-3 px-3 h-10 rounded-xl text-sm font-medium transition relative",
+                      isActive
+                        ? "bg-primary-muted text-primary dark:bg-primary/15"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    )
+                  }
+                >
+                  <Icon className="h-4 w-4" />
+                  <span className="flex-1">{label}</span>
+                  {badge > 0 && (
+                    <span className="ml-auto h-5 min-w-5 px-1.5 rounded-full bg-primary text-primary-foreground text-[10px] font-semibold flex items-center justify-center">
+                      {badge > 99 ? "99+" : badge}
+                    </span>
+                  )}
+                </NavLink>
+              );
+            })}
             <Button
               onClick={() => navigate("/feed?compose=1")}
               className="mt-3 rounded-xl bg-gradient-brand text-primary-foreground shadow-soft hover:shadow-elevated transition"
@@ -140,21 +159,31 @@ export function AppShell() {
       {/* Mobile bottom nav */}
       <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-border bg-background/95 backdrop-blur-xl">
         <div className="grid grid-cols-5">
-          {NAV.map(({ to, label, icon: Icon }) => (
-            <NavLink
-              key={to}
-              to={to}
-              className={({ isActive }) =>
-                cn(
-                  "flex flex-col items-center justify-center py-2.5 gap-0.5 text-[10px] font-medium",
-                  isActive ? "text-primary" : "text-muted-foreground"
-                )
-              }
-            >
-              <Icon className="h-5 w-5" />
-              <span>{label}</span>
-            </NavLink>
-          ))}
+          {NAV.map(({ to, label, icon: Icon }) => {
+            const badge = badgeFor(to);
+            return (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) =>
+                  cn(
+                    "flex flex-col items-center justify-center py-2.5 gap-0.5 text-[10px] font-medium relative",
+                    isActive ? "text-primary" : "text-muted-foreground"
+                  )
+                }
+              >
+                <span className="relative">
+                  <Icon className="h-5 w-5" />
+                  {badge > 0 && (
+                    <span className="absolute -top-1.5 -right-2 h-4 min-w-4 px-1 rounded-full bg-primary text-primary-foreground text-[9px] font-semibold flex items-center justify-center">
+                      {badge > 9 ? "9+" : badge}
+                    </span>
+                  )}
+                </span>
+                <span>{label}</span>
+              </NavLink>
+            );
+          })}
         </div>
       </nav>
     </div>
