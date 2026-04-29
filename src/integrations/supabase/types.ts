@@ -175,6 +175,62 @@ export type Database = {
           },
         ]
       }
+      conversation_participants: {
+        Row: {
+          conversation_id: string
+          joined_at: string
+          last_read_at: string | null
+          user_id: string
+        }
+        Insert: {
+          conversation_id: string
+          joined_at?: string
+          last_read_at?: string | null
+          user_id: string
+        }
+        Update: {
+          conversation_id?: string
+          joined_at?: string
+          last_read_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversation_participants_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      conversations: {
+        Row: {
+          created_at: string
+          created_by: string
+          id: string
+          is_group: boolean
+          last_message_at: string
+          title: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          id?: string
+          is_group?: boolean
+          last_message_at?: string
+          title?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          id?: string
+          is_group?: boolean
+          last_message_at?: string
+          title?: string | null
+        }
+        Relationships: []
+      }
       follows: {
         Row: {
           created_at: string
@@ -192,6 +248,80 @@ export type Database = {
           following_id?: string
         }
         Relationships: []
+      }
+      friend_requests: {
+        Row: {
+          created_at: string
+          id: string
+          message: string | null
+          recipient_id: string
+          responded_at: string | null
+          sender_id: string
+          status: Database["public"]["Enums"]["friend_request_status"]
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          recipient_id: string
+          responded_at?: string | null
+          sender_id: string
+          status?: Database["public"]["Enums"]["friend_request_status"]
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          recipient_id?: string
+          responded_at?: string | null
+          sender_id?: string
+          status?: Database["public"]["Enums"]["friend_request_status"]
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          content: string | null
+          conversation_id: string
+          created_at: string
+          id: string
+          is_deleted: boolean
+          is_edited: boolean
+          media_type: Database["public"]["Enums"]["media_kind"] | null
+          media_url: string | null
+          sender_id: string
+        }
+        Insert: {
+          content?: string | null
+          conversation_id: string
+          created_at?: string
+          id?: string
+          is_deleted?: boolean
+          is_edited?: boolean
+          media_type?: Database["public"]["Enums"]["media_kind"] | null
+          media_url?: string | null
+          sender_id: string
+        }
+        Update: {
+          content?: string | null
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          is_deleted?: boolean
+          is_edited?: boolean
+          media_type?: Database["public"]["Enums"]["media_kind"] | null
+          media_url?: string | null
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       notifications: {
         Row: {
@@ -226,24 +356,42 @@ export type Database = {
       post_media: {
         Row: {
           created_at: string
+          duration_seconds: number | null
+          height: number | null
           id: string
+          media_type: Database["public"]["Enums"]["media_kind"]
           position: number
           post_id: string
+          storage_path: string | null
+          thumbnail_url: string | null
           url: string
+          width: number | null
         }
         Insert: {
           created_at?: string
+          duration_seconds?: number | null
+          height?: number | null
           id?: string
+          media_type?: Database["public"]["Enums"]["media_kind"]
           position?: number
           post_id: string
+          storage_path?: string | null
+          thumbnail_url?: string | null
           url: string
+          width?: number | null
         }
         Update: {
           created_at?: string
+          duration_seconds?: number | null
+          height?: number | null
           id?: string
+          media_type?: Database["public"]["Enums"]["media_kind"]
           position?: number
           post_id?: string
+          storage_path?: string | null
+          thumbnail_url?: string | null
           url?: string
+          width?: number | null
         }
         Relationships: [
           {
@@ -456,6 +604,10 @@ export type Database = {
         Args: { _community: string; _user: string }
         Returns: boolean
       }
+      is_conversation_member: {
+        Args: { _conv: string; _user: string }
+        Returns: boolean
+      }
       is_following: {
         Args: { _follower: string; _following: string }
         Returns: boolean
@@ -465,6 +617,8 @@ export type Database = {
       app_role: "user" | "moderator" | "admin"
       community_role: "member" | "moderator" | "owner"
       community_visibility: "public" | "private"
+      friend_request_status: "pending" | "accepted" | "declined" | "cancelled"
+      media_kind: "image" | "video"
       notification_type:
         | "follow"
         | "reaction"
@@ -472,6 +626,12 @@ export type Database = {
         | "mention"
         | "community_invite"
         | "system"
+        | "post_reaction"
+        | "post_comment"
+        | "comment_reply"
+        | "friend_request"
+        | "friend_accept"
+        | "message"
       post_visibility: "public" | "followers" | "private"
       reaction_type: "like" | "love" | "celebrate" | "insightful" | "curious"
       report_status: "open" | "reviewing" | "resolved" | "dismissed"
@@ -606,6 +766,8 @@ export const Constants = {
       app_role: ["user", "moderator", "admin"],
       community_role: ["member", "moderator", "owner"],
       community_visibility: ["public", "private"],
+      friend_request_status: ["pending", "accepted", "declined", "cancelled"],
+      media_kind: ["image", "video"],
       notification_type: [
         "follow",
         "reaction",
@@ -613,6 +775,12 @@ export const Constants = {
         "mention",
         "community_invite",
         "system",
+        "post_reaction",
+        "post_comment",
+        "comment_reply",
+        "friend_request",
+        "friend_accept",
+        "message",
       ],
       post_visibility: ["public", "followers", "private"],
       reaction_type: ["like", "love", "celebrate", "insightful", "curious"],
