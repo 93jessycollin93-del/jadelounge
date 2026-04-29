@@ -629,6 +629,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_blocked_between: { Args: { _a: string; _b: string }; Returns: boolean }
       is_community_member: {
         Args: { _community: string; _user: string }
         Returns: boolean
