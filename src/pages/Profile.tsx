@@ -12,6 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { initialsOf } from "@/lib/format";
 import { Newspaper } from "lucide-react";
 import { FriendButton } from "@/components/friends/FriendButton";
+import { BlockButton } from "@/components/privacy/BlockButton";
 import { openOrCreateConversation } from "@/lib/messaging";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
@@ -160,6 +161,7 @@ export default function Profile() {
                   >
                     <MessageCircle className="h-3.5 w-3.5 mr-1" /> Message
                   </Button>
+                  <BlockButton targetUserId={profile.id} targetName={profile.username} />
                 </>
               ) : null}
             </div>

@@ -10,6 +10,8 @@ import { initialsOf, timeAgo } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
 import { z } from "zod";
+import { isBlockedBetween } from "@/lib/messaging";
+import { Ban } from "lucide-react";
 
 interface Message {
   id: string;
@@ -38,6 +40,7 @@ export default function Conversation() {
   const [other, setOther] = useState<Other | null>(null);
   const [draft, setDraft] = useState("");
   const [sending, setSending] = useState(false);
+  const [blocked, setBlocked] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const markRead = useCallback(async () => {
@@ -68,6 +71,11 @@ export default function Conversation() {
     }
     const o = parts.find((p) => p.user_id !== user.id);
     setOther(((o as unknown as { profile: Other | null })?.profile) ?? null);
+
+    if (o) {
+      const isBlk = await isBlockedBetween(user.id, o.user_id as string);
+      setBlocked(isBlk);
+    }
 
     const { data: msgs } = await supabase
       .from("messages")
@@ -135,6 +143,10 @@ export default function Conversation() {
   const send = async () => {
     const parsed = msgSchema.safeParse({ content: draft });
     if (!parsed.success || !user || !conversationId) return;
+    if (blocked) {
+      toast({ title: "Messaging disabled", description: "A block is in place between you and this account.", variant: "destructive" });
+      return;
+    }
     setSending(true);
     const { error } = await supabase.from("messages").insert({
       conversation_id: conversationId,
@@ -206,13 +218,20 @@ export default function Conversation() {
         )}
       </div>
 
+      {blocked && (
+        <div className="px-3 py-2 text-xs text-destructive bg-destructive/10 border-t border-destructive/30 flex items-center gap-1.5">
+          <Ban className="h-3.5 w-3.5" />
+          Messaging disabled — a block exists between you and this account.
+        </div>
+      )}
       <div className="border-t border-border p-2 flex items-end gap-2 bg-card">
         <Textarea
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
-          placeholder="Write a message…"
+          placeholder={blocked ? "Messaging disabled" : "Write a message…"}
           rows={1}
           maxLength={4000}
+          disabled={blocked}
           className="resize-none rounded-2xl bg-muted/60 border-0 text-sm focus-visible:ring-1"
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
@@ -223,7 +242,7 @@ export default function Conversation() {
         />
         <Button
           onClick={send}
-          disabled={sending || !draft.trim()}
+          disabled={sending || !draft.trim() || blocked}
           size="icon"
           className="rounded-full bg-gradient-brand text-primary-foreground shrink-0"
           aria-label="Send"
