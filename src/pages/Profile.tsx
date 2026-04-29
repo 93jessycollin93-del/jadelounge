@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CalendarDays, MapPin, Globe, BadgeCheck, UserPlus, UserCheck, Edit3 } from "lucide-react";
+import { CalendarDays, MapPin, Globe, BadgeCheck, UserPlus, UserCheck, Edit3, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { PostCard, type FeedPost } from "@/components/feed/PostCard";
@@ -11,6 +11,10 @@ import { ErrorState } from "@/components/common/ErrorState";
 import { Skeleton } from "@/components/ui/skeleton";
 import { initialsOf } from "@/lib/format";
 import { Newspaper } from "lucide-react";
+import { FriendButton } from "@/components/friends/FriendButton";
+import { openOrCreateConversation } from "@/lib/messaging";
+import { useNavigate } from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 
 interface PublicProfile {
   id: string;
@@ -28,6 +32,7 @@ interface PublicProfile {
 export default function Profile() {
   const { username } = useParams<{ username: string }>();
   const { user: currentUser } = useAuth();
+  const navigate = useNavigate();
   const [profile, setProfile] = useState<PublicProfile | null | "missing">(null);
   const [posts, setPosts] = useState<FeedPost[] | null>(null);
   const [followCounts, setFollowCounts] = useState<{ followers: number; following: number }>({ followers: 0, following: 0 });
@@ -56,7 +61,7 @@ export default function Profile() {
       supabase
         .from("posts")
         .select(
-          "id, content, visibility, like_count, comment_count, created_at, author_id, author:profiles!posts_author_id_fkey(username, display_name, avatar_url, is_verified)"
+          "id, content, visibility, like_count, comment_count, created_at, author_id, author:profiles!posts_author_id_fkey(username, display_name, avatar_url, is_verified), media:post_media(id, url, media_type, position)"
         )
         .eq("author_id", prof.id)
         .order("created_at", { ascending: false })
@@ -124,15 +129,38 @@ export default function Profile() {
                 {initialsOf(profile.display_name)}
               </AvatarFallback>
             </Avatar>
-            <div className="mb-2">
+            <div className="mb-2 flex flex-wrap items-center gap-1.5 justify-end">
               {isMe ? (
                 <Button variant="outline" size="sm" className="rounded-full" disabled>
                   <Edit3 className="h-3.5 w-3.5 mr-1" /> Edit profile (coming)
                 </Button>
               ) : currentUser ? (
-                <Button onClick={toggleFollow} size="sm" className={`rounded-full ${iFollow ? "" : "bg-gradient-brand text-primary-foreground"}`} variant={iFollow ? "outline" : "default"}>
-                  {iFollow ? <><UserCheck className="h-3.5 w-3.5 mr-1" /> Following</> : <><UserPlus className="h-3.5 w-3.5 mr-1" /> Follow</>}
-                </Button>
+                <>
+                  <Button
+                    onClick={toggleFollow}
+                    size="sm"
+                    className={`rounded-full ${iFollow ? "" : "bg-gradient-brand text-primary-foreground"}`}
+                    variant={iFollow ? "outline" : "default"}
+                  >
+                    {iFollow ? <><UserCheck className="h-3.5 w-3.5 mr-1" /> Following</> : <><UserPlus className="h-3.5 w-3.5 mr-1" /> Follow</>}
+                  </Button>
+                  <FriendButton targetUserId={profile.id} />
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="rounded-full"
+                    onClick={async () => {
+                      try {
+                        const conv = await openOrCreateConversation(currentUser.id, profile.id);
+                        navigate(`/messages/${conv}`);
+                      } catch (e) {
+                        toast({ title: "Could not open chat", description: e instanceof Error ? e.message : "Unknown", variant: "destructive" });
+                      }
+                    }}
+                  >
+                    <MessageCircle className="h-3.5 w-3.5 mr-1" /> Message
+                  </Button>
+                </>
               ) : null}
             </div>
           </div>

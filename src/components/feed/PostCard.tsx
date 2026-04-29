@@ -24,6 +24,7 @@ import { toast } from "@/hooks/use-toast";
 import { initialsOf, timeAgo } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { z } from "zod";
+import { MediaGallery, type PostMedia } from "@/components/feed/MediaGallery";
 
 export interface FeedPost {
   id: string;
@@ -39,6 +40,7 @@ export interface FeedPost {
     avatar_url: string | null;
     is_verified: boolean;
   } | null;
+  media?: PostMedia[];
 }
 
 interface CommentRow {
@@ -213,6 +215,8 @@ export function PostCard({ post, onChanged }: { post: FeedPost; onChanged?: () =
       </header>
 
       <p className="mt-3 text-[15px] leading-relaxed whitespace-pre-wrap break-words">{post.content}</p>
+
+      {post.media && post.media.length > 0 && <MediaGallery media={post.media} />}
 
       <div className="mt-3 flex items-center gap-1 -ml-1">
         <Button

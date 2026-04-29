@@ -16,6 +16,8 @@ import CommunityPage from "./pages/CommunityPage.tsx";
 import Explore from "./pages/Explore.tsx";
 import Notifications from "./pages/Notifications.tsx";
 import Messages from "./pages/Messages.tsx";
+import Conversation from "./pages/Conversation.tsx";
+import Friends from "./pages/Friends.tsx";
 import Settings from "./pages/Settings.tsx";
 import Moderation from "./pages/Moderation.tsx";
 import Admin from "./pages/Admin.tsx";
@@ -48,6 +50,8 @@ const App = () => (
                 <Route path="/u/:username" element={<Profile />} />
                 <Route path="/notifications" element={<Notifications />} />
                 <Route path="/messages" element={<Messages />} />
+                <Route path="/messages/:id" element={<Conversation />} />
+                <Route path="/friends" element={<Friends />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route
                   path="/moderation"

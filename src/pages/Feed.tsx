@@ -16,7 +16,7 @@ export default function Feed() {
     const { data, error } = await supabase
       .from("posts")
       .select(
-        "id, content, visibility, like_count, comment_count, created_at, author_id, author:profiles!posts_author_id_fkey(username, display_name, avatar_url, is_verified)"
+        "id, content, visibility, like_count, comment_count, created_at, author_id, author:profiles!posts_author_id_fkey(username, display_name, avatar_url, is_verified), media:post_media(id, url, media_type, position)"
       )
       .order("created_at", { ascending: false })
       .limit(50);
