@@ -10,6 +10,8 @@ import { initialsOf, timeAgo } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
 import { z } from "zod";
+import { isBlockedBetween } from "@/lib/messaging";
+import { Ban } from "lucide-react";
 
 interface Message {
   id: string;
@@ -38,6 +40,7 @@ export default function Conversation() {
   const [other, setOther] = useState<Other | null>(null);
   const [draft, setDraft] = useState("");
   const [sending, setSending] = useState(false);
+  const [blocked, setBlocked] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const markRead = useCallback(async () => {
@@ -68,6 +71,11 @@ export default function Conversation() {
     }
     const o = parts.find((p) => p.user_id !== user.id);
     setOther(((o as unknown as { profile: Other | null })?.profile) ?? null);
+
+    if (o) {
+      const isBlk = await isBlockedBetween(user.id, o.user_id as string);
+      setBlocked(isBlk);
+    }
 
     const { data: msgs } = await supabase
       .from("messages")
@@ -135,6 +143,10 @@ export default function Conversation() {
   const send = async () => {
     const parsed = msgSchema.safeParse({ content: draft });
     if (!parsed.success || !user || !conversationId) return;
+    if (blocked) {
+      toast({ title: "Messaging disabled", description: "A block is in place between you and this account.", variant: "destructive" });
+      return;
+    }
     setSending(true);
     const { error } = await supabase.from("messages").insert({
       conversation_id: conversationId,
