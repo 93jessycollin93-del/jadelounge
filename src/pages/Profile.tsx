@@ -175,9 +175,9 @@ export default function Profile() {
             {profile.bio && <p className="mt-3 text-sm whitespace-pre-wrap">{profile.bio}</p>}
             <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
               {profile.location && <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{profile.location}</span>}
-              {profile.website && (
-                <a href={profile.website} target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-foreground">
-                  <Globe className="h-3 w-3" />{profile.website.replace(/^https?:\/\//, "")}
+              {profile.website && /^https?:\/\//i.test(profile.website) && (
+                <a href={profile.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-foreground">
+                  <Globe className="h-3 w-3" />{profile.website.replace(/^https?:\/\//i, "")}
                 </a>
               )}
               <span className="flex items-center gap-1"><CalendarDays className="h-3 w-3" />Joined {new Date(profile.created_at).toLocaleDateString(undefined, { month: "long", year: "numeric" })}</span>
