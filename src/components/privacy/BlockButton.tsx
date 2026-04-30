@@ -1,3 +1,4 @@
+import { formatDbError } from "@/lib/errors";
 import { useEffect, useState } from "react";
 import { Ban, ShieldOff, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -53,7 +54,7 @@ export function BlockButton({ targetUserId, targetName, onChanged }: Props) {
       .insert({ blocker_id: user.id, blocked_id: targetUserId });
     setBusy(false);
     if (error) {
-      toast({ title: "Could not block", description: error.message, variant: "destructive" });
+      toast({ title: "Could not block", description: formatDbError(error), variant: "destructive" });
       return;
     }
     setBlocked(true);
@@ -70,7 +71,7 @@ export function BlockButton({ targetUserId, targetName, onChanged }: Props) {
       .eq("blocked_id", targetUserId);
     setBusy(false);
     if (error) {
-      toast({ title: "Could not unblock", description: error.message, variant: "destructive" });
+      toast({ title: "Could not unblock", description: formatDbError(error), variant: "destructive" });
       return;
     }
     setBlocked(false);

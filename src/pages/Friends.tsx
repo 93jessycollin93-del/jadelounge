@@ -1,3 +1,4 @@
+import { formatDbError } from "@/lib/errors";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Users2, UserCheck, X, Inbox } from "lucide-react";
@@ -67,7 +68,7 @@ export default function Friends() {
       .from("friend_requests")
       .update({ status: "accepted", responded_at: new Date().toISOString() })
       .eq("id", id);
-    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    if (error) toast({ title: "Error", description: formatDbError(error), variant: "destructive" });
     load();
   };
 

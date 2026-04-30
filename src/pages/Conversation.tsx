@@ -1,3 +1,4 @@
+import { formatDbError } from "@/lib/errors";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, Send, Loader2 } from "lucide-react";
@@ -155,7 +156,7 @@ export default function Conversation() {
     });
     setSending(false);
     if (error) {
-      toast({ title: "Could not send", description: error.message, variant: "destructive" });
+      toast({ title: "Could not send", description: formatDbError(error), variant: "destructive" });
       return;
     }
     setDraft("");

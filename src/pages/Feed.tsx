@@ -1,3 +1,4 @@
+import { formatDbError } from "@/lib/errors";
 import { useCallback, useEffect, useState } from "react";
 import { Newspaper } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -21,7 +22,7 @@ export default function Feed() {
       .order("created_at", { ascending: false })
       .limit(50);
     if (error) {
-      setError(error.message);
+      setError(formatDbError(error));
       setPosts([]);
       return;
     }

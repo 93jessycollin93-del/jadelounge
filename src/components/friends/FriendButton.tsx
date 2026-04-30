@@ -1,3 +1,4 @@
+import { formatDbError } from "@/lib/errors";
 import { useEffect, useState } from "react";
 import { UserPlus, UserCheck, Clock, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -53,7 +54,7 @@ export function FriendButton({ targetUserId, className }: Props) {
       .from("friend_requests")
       .insert({ sender_id: user.id, recipient_id: targetUserId, status: "pending" });
     if (error) {
-      toast({ title: "Could not send request", description: error.message, variant: "destructive" });
+      toast({ title: "Could not send request", description: formatDbError(error), variant: "destructive" });
     } else {
       toast({ title: "Friend request sent" });
     }
@@ -74,7 +75,7 @@ export function FriendButton({ targetUserId, className }: Props) {
       .from("friend_requests")
       .update({ status: "accepted", responded_at: new Date().toISOString() })
       .eq("id", requestId);
-    if (error) toast({ title: "Could not accept", description: error.message, variant: "destructive" });
+    if (error) toast({ title: "Could not accept", description: formatDbError(error), variant: "destructive" });
     refresh();
   };
 

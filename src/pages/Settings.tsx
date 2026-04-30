@@ -1,3 +1,4 @@
+import { formatDbError } from "@/lib/errors";
 import { useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
@@ -42,7 +43,7 @@ export default function Settings() {
       .eq("id", profile.id);
     setSaving(false);
     if (error) {
-      toast({ title: "Could not save", description: error.message, variant: "destructive" });
+      toast({ title: "Could not save", description: formatDbError(error), variant: "destructive" });
       return;
     }
     await refreshProfile();
