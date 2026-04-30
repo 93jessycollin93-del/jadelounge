@@ -1,3 +1,4 @@
+import { formatDbError } from "@/lib/errors";
 import { useCallback, useEffect, useState } from "react";
 import { ShieldCheck, Check, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -40,7 +41,7 @@ export default function Moderation() {
       .update({ status, resolved_by: user.id, resolved_at: new Date().toISOString() })
       .eq("id", id);
     if (error) {
-      toast({ title: "Failed", description: error.message, variant: "destructive" });
+      toast({ title: "Failed", description: formatDbError(error), variant: "destructive" });
       return;
     }
     toast({ title: `Report ${status}` });

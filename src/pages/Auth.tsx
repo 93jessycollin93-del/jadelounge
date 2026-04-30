@@ -1,3 +1,4 @@
+import { formatDbError } from "@/lib/errors";
 import { useEffect, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -58,7 +59,7 @@ export default function Auth() {
       const { error } = await supabase.auth.signInWithPassword({ email: parsed.data.email, password: parsed.data.password });
       setSubmitting(false);
       if (error) {
-        toast({ title: "Sign-in failed", description: error.message, variant: "destructive" });
+        toast({ title: "Sign-in failed", description: formatDbError(error), variant: "destructive" });
         return;
       }
       navigate("/feed");
@@ -82,7 +83,7 @@ export default function Auth() {
       });
       setSubmitting(false);
       if (error) {
-        toast({ title: "Sign-up failed", description: error.message, variant: "destructive" });
+        toast({ title: "Sign-up failed", description: formatDbError(error), variant: "destructive" });
         return;
       }
       toast({ title: "Welcome to Jade Atelier", description: "Your account is ready." });

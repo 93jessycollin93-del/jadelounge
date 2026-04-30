@@ -1,3 +1,4 @@
+import { formatDbError } from "@/lib/errors";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Heart, MessageCircle, Share2, MoreHorizontal, Flag, Trash2, Globe2, Users, Lock } from "lucide-react";
@@ -126,7 +127,7 @@ export function PostCard({ post, onChanged }: { post: FeedPost; onChanged?: () =
       content: parsed.data.content,
     });
     if (error) {
-      toast({ title: "Could not comment", description: error.message, variant: "destructive" });
+      toast({ title: "Could not comment", description: formatDbError(error), variant: "destructive" });
       return;
     }
     setNewComment("");
@@ -138,7 +139,7 @@ export function PostCard({ post, onChanged }: { post: FeedPost; onChanged?: () =
     if (!user || user.id !== post.author_id) return;
     const { error } = await supabase.from("posts").delete().eq("id", post.id);
     if (error) {
-      toast({ title: "Could not delete", description: error.message, variant: "destructive" });
+      toast({ title: "Could not delete", description: formatDbError(error), variant: "destructive" });
       return;
     }
     toast({ title: "Post deleted" });
@@ -159,7 +160,7 @@ export function PostCard({ post, onChanged }: { post: FeedPost; onChanged?: () =
       reason: parsed.data.reason,
     });
     if (error) {
-      toast({ title: "Could not submit report", description: error.message, variant: "destructive" });
+      toast({ title: "Could not submit report", description: formatDbError(error), variant: "destructive" });
       return;
     }
     toast({ title: "Report submitted", description: "Our moderators will review it." });

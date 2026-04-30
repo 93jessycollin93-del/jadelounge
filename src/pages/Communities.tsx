@@ -1,3 +1,4 @@
+import { formatDbError } from "@/lib/errors";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Users2, Plus, Loader2 } from "lucide-react";
@@ -53,7 +54,7 @@ export default function Communities() {
       .order("member_count", { ascending: false })
       .limit(50);
     if (error) {
-      setError(error.message);
+      setError(formatDbError(error));
       return;
     }
     setList((data ?? []) as Community[]);
@@ -89,7 +90,7 @@ export default function Communities() {
     const { error } = await supabase.from("communities").insert(insertPayload as never);
     setSubmitting(false);
     if (error) {
-      toast({ title: "Could not create community", description: error.message, variant: "destructive" });
+      toast({ title: "Could not create community", description: formatDbError(error), variant: "destructive" });
       return;
     }
     toast({ title: "Community created" });
