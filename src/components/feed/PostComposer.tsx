@@ -117,10 +117,10 @@ export function PostComposer({ onPosted, communityId }: { onPosted?: () => void;
             .from("post-media")
             .upload(path, f.file, { contentType: f.file.type, upsert: false });
           if (upErr) throw new Error(upErr.message);
-          const { data: pub } = supabase.storage.from("post-media").getPublicUrl(path);
           mediaRows.push({
             post_id: post.id,
-            url: pub.publicUrl,
+            // Bucket is private; we resolve signed URLs at render time using storage_path.
+            url: path,
             storage_path: path,
             media_type: f.kind,
             position: i,
