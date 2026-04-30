@@ -1,0 +1,83 @@
+{
+  "common": {
+    "appName": "Jade Atelier",
+    "tagline": "面向创作者、朋友与社区的独立社交网络。",
+    "loading": "加载中…",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "post": "发布",
+    "reply": "回复",
+    "search": "搜索",
+    "send": "发送",
+    "back": "返回",
+    "more": "更多",
+    "seeAll": "查看全部",
+    "retry": "重试",
+    "yes": "是",
+    "no": "否",
+    "confirm": "确认",
+    "language": "语言"
+  },
+  "nav": {
+    "home": "主页",
+    "explore": "发现",
+    "friends": "好友",
+    "communities": "社区",
+    "messages": "消息",
+    "notifications": "通知",
+    "profile": "个人资料",
+    "settings": "设置与隐私",
+    "moderation": "审核队列",
+    "admin": "管理后台",
+    "signOut": "退出登录",
+    "myProfile": "我的资料",
+    "newPost": "新帖子",
+    "searchPlaceholder": "搜索用户、社区、帖子…"
+  },
+  "feed": {
+    "title": "主页",
+    "composerPlaceholder": "与你的圈子分享些什么…",
+    "empty": "你的动态是空的。关注他人或加入一个社区。"
+  },
+  "auth": {
+    "signIn": "登录",
+    "signUp": "注册",
+    "email": "邮箱",
+    "password": "密码",
+    "displayName": "显示名",
+    "username": "用户名",
+    "continueWithGoogle": "使用 Google 继续",
+    "noAccount": "还没有账号？",
+    "hasAccount": "已经有账号？"
+  },
+  "settings": {
+    "title": "设置",
+    "account": "账号",
+    "privacy": "隐私",
+    "appearance": "外观",
+    "language": "语言",
+    "languageDesc": "选择整个应用使用的语言。",
+    "theme": "主题"
+  },
+  "profile": {
+    "followers": "粉丝",
+    "following": "关注中",
+    "posts": "帖子",
+    "follow": "关注",
+    "unfollow": "取消关注",
+    "message": "消息",
+    "block": "屏蔽",
+    "unblock": "取消屏蔽",
+    "editProfile": "编辑资料"
+  },
+  "rightRail": {
+    "welcomeTitle": "欢迎来到 Jade Atelier",
+    "welcomeBody": "面向创作者、朋友与社区的独立社交网络。原创平台 — 无第三方数据，无隐蔽追踪。",
+    "terms": "条款",
+    "privacy": "隐私",
+    "guidelines": "守则",
+    "about": "关于"
+  }
+}
