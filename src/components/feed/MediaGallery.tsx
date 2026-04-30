@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Play } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 
 export interface PostMedia {
@@ -8,14 +9,51 @@ export interface PostMedia {
   url: string;
   media_type: "image" | "video";
   position: number;
+  storage_path?: string | null;
+}
+
+function isLikelyHttpUrl(s: string | null | undefined): boolean {
+  return !!s && /^https?:\/\//i.test(s);
+}
+
+async function resolveSignedUrls(media: PostMedia[]): Promise<Record<string, string>> {
+  const result: Record<string, string> = {};
+  await Promise.all(
+    media.map(async (m) => {
+      const path = m.storage_path ?? (isLikelyHttpUrl(m.url) ? null : m.url);
+      if (!path) {
+        result[m.id] = m.url;
+        return;
+      }
+      const { data, error } = await supabase.storage
+        .from("post-media")
+        .createSignedUrl(path, 60 * 60);
+      result[m.id] = error || !data ? m.url : data.signedUrl;
+    })
+  );
+  return result;
 }
 
 export function MediaGallery({ media }: { media: PostMedia[] }) {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const [signed, setSigned] = useState<Record<string, string>>({});
   if (!media || media.length === 0) return null;
 
   const sorted = [...media].sort((a, b) => a.position - b.position);
   const count = sorted.length;
+
+  useEffect(() => {
+    let cancelled = false;
+    resolveSignedUrls(sorted).then((map) => {
+      if (!cancelled) setSigned(map);
+    });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [media.map((m) => m.id).join(",")]);
+
+  const srcOf = (m: PostMedia) => signed[m.id] ?? (isLikelyHttpUrl(m.url) ? m.url : "");
 
   // Dynamic grid layout based on count (Facebook-style)
   const gridClass =
@@ -54,7 +92,7 @@ export function MediaGallery({ media }: { media: PostMedia[] }) {
             >
               {m.media_type === "image" ? (
                 <img
-                  src={m.url}
+                  src={srcOf(m)}
                   alt=""
                   loading="lazy"
                   className="w-full h-full object-cover transition group-hover:scale-[1.02]"
@@ -62,7 +100,7 @@ export function MediaGallery({ media }: { media: PostMedia[] }) {
               ) : (
                 <>
                   <video
-                    src={m.url}
+                    src={srcOf(m)}
                     className="w-full h-full object-cover"
                     muted
                     playsInline
@@ -91,13 +129,13 @@ export function MediaGallery({ media }: { media: PostMedia[] }) {
             <div className="relative w-full max-h-[80vh] flex items-center justify-center bg-black">
               {sorted[openIdx].media_type === "image" ? (
                 <img
-                  src={sorted[openIdx].url}
+                  src={srcOf(sorted[openIdx])}
                   alt=""
                   className="max-h-[80vh] w-auto object-contain"
                 />
               ) : (
                 <video
-                  src={sorted[openIdx].url}
+                  src={srcOf(sorted[openIdx])}
                   className="max-h-[80vh] w-full"
                   controls
                   autoPlay

@@ -62,7 +62,7 @@ export default function Profile() {
       supabase
         .from("posts")
         .select(
-          "id, content, visibility, like_count, comment_count, created_at, author_id, author:profiles!posts_author_id_fkey(username, display_name, avatar_url, is_verified), media:post_media(id, url, media_type, position)"
+          "id, content, visibility, like_count, comment_count, created_at, author_id, author:profiles!posts_author_id_fkey(username, display_name, avatar_url, is_verified), media:post_media(id, url, media_type, position, storage_path)"
         )
         .eq("author_id", prof.id)
         .order("created_at", { ascending: false })
