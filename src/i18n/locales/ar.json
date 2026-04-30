@@ -1,0 +1,83 @@
+{
+  "common": {
+    "appName": "Jade Atelier",
+    "tagline": "شبكة اجتماعية مستقلة للمبدعين والأصدقاء والمجتمعات.",
+    "loading": "جارٍ التحميل…",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "post": "نشر",
+    "reply": "رد",
+    "search": "بحث",
+    "send": "إرسال",
+    "back": "رجوع",
+    "more": "المزيد",
+    "seeAll": "عرض الكل",
+    "retry": "إعادة",
+    "yes": "نعم",
+    "no": "لا",
+    "confirm": "تأكيد",
+    "language": "اللغة"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "explore": "استكشاف",
+    "friends": "الأصدقاء",
+    "communities": "المجتمعات",
+    "messages": "الرسائل",
+    "notifications": "الإشعارات",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات والخصوصية",
+    "moderation": "قائمة الإشراف",
+    "admin": "لوحة الإدارة",
+    "signOut": "تسجيل الخروج",
+    "myProfile": "ملفي",
+    "newPost": "منشور جديد",
+    "searchPlaceholder": "ابحث عن أشخاص ومجتمعات ومنشورات…"
+  },
+  "feed": {
+    "title": "الرئيسية",
+    "composerPlaceholder": "شارك شيئًا مع دائرتك…",
+    "empty": "موجزك فارغ. تابع أشخاصًا أو انضم إلى مجتمع."
+  },
+  "auth": {
+    "signIn": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "email": "البريد",
+    "password": "كلمة المرور",
+    "displayName": "الاسم الظاهر",
+    "username": "اسم المستخدم",
+    "continueWithGoogle": "المتابعة مع Google",
+    "noAccount": "ليس لديك حساب؟",
+    "hasAccount": "لديك حساب بالفعل؟"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "account": "الحساب",
+    "privacy": "الخصوصية",
+    "appearance": "المظهر",
+    "language": "اللغة",
+    "languageDesc": "اختر اللغة المستخدمة في التطبيق.",
+    "theme": "السمة"
+  },
+  "profile": {
+    "followers": "المتابعون",
+    "following": "تتابع",
+    "posts": "المنشورات",
+    "follow": "متابعة",
+    "unfollow": "إلغاء المتابعة",
+    "message": "رسالة",
+    "block": "حظر",
+    "unblock": "إلغاء الحظر",
+    "editProfile": "تعديل الملف"
+  },
+  "rightRail": {
+    "welcomeTitle": "مرحبًا بك في Jade Atelier",
+    "welcomeBody": "شبكة اجتماعية مستقلة للمبدعين والأصدقاء والمجتمعات. منصة أصلية — بدون بيانات أطراف ثالثة ولا تتبع خفي.",
+    "terms": "الشروط",
+    "privacy": "الخصوصية",
+    "guidelines": "الإرشادات",
+    "about": "حول"
+  }
+}

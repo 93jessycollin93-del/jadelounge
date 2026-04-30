@@ -1,0 +1,83 @@
+{
+  "common": {
+    "appName": "Jade Atelier",
+    "tagline": "रचनाकारों, मित्रों और समुदायों के लिए स्वतंत्र सोशल नेटवर्क।",
+    "loading": "लोड हो रहा है…",
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "delete": "हटाएँ",
+    "edit": "संपादित करें",
+    "post": "पोस्ट",
+    "reply": "जवाब",
+    "search": "खोजें",
+    "send": "भेजें",
+    "back": "वापस",
+    "more": "और",
+    "seeAll": "सब देखें",
+    "retry": "पुनः प्रयास",
+    "yes": "हाँ",
+    "no": "नहीं",
+    "confirm": "पुष्टि करें",
+    "language": "भाषा"
+  },
+  "nav": {
+    "home": "होम",
+    "explore": "एक्सप्लोर",
+    "friends": "मित्र",
+    "communities": "समुदाय",
+    "messages": "संदेश",
+    "notifications": "सूचनाएँ",
+    "profile": "प्रोफ़ाइल",
+    "settings": "सेटिंग्स और गोपनीयता",
+    "moderation": "मॉडरेशन क्यू",
+    "admin": "एडमिन डैशबोर्ड",
+    "signOut": "साइन आउट",
+    "myProfile": "मेरी प्रोफ़ाइल",
+    "newPost": "नई पोस्ट",
+    "searchPlaceholder": "लोग, समुदाय, पोस्ट खोजें…"
+  },
+  "feed": {
+    "title": "होम",
+    "composerPlaceholder": "अपने सर्कल के साथ कुछ साझा करें…",
+    "empty": "आपका फ़ीड खाली है। लोगों को फ़ॉलो करें या समुदाय जॉइन करें।"
+  },
+  "auth": {
+    "signIn": "साइन इन",
+    "signUp": "साइन अप",
+    "email": "ईमेल",
+    "password": "पासवर्ड",
+    "displayName": "प्रदर्शित नाम",
+    "username": "उपयोगकर्ता नाम",
+    "continueWithGoogle": "Google से जारी रखें",
+    "noAccount": "खाता नहीं है?",
+    "hasAccount": "पहले से खाता है?"
+  },
+  "settings": {
+    "title": "सेटिंग्स",
+    "account": "खाता",
+    "privacy": "गोपनीयता",
+    "appearance": "रूप-रंग",
+    "language": "भाषा",
+    "languageDesc": "ऐप में उपयोग की जाने वाली भाषा चुनें।",
+    "theme": "थीम"
+  },
+  "profile": {
+    "followers": "फ़ॉलोअर्स",
+    "following": "फ़ॉलोइंग",
+    "posts": "पोस्ट्स",
+    "follow": "फ़ॉलो",
+    "unfollow": "अनफ़ॉलो",
+    "message": "संदेश",
+    "block": "ब्लॉक",
+    "unblock": "अनब्लॉक",
+    "editProfile": "प्रोफ़ाइल संपादित करें"
+  },
+  "rightRail": {
+    "welcomeTitle": "Jade Atelier में आपका स्वागत है",
+    "welcomeBody": "रचनाकारों, मित्रों और समुदायों के लिए स्वतंत्र सोशल नेटवर्क। मूल प्लेटफ़ॉर्म — कोई तृतीय-पक्ष डेटा नहीं, कोई छिपा ट्रैकिंग नहीं।",
+    "terms": "शर्तें",
+    "privacy": "गोपनीयता",
+    "guidelines": "दिशानिर्देश",
+    "about": "बारे में"
+  }
+}

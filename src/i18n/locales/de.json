@@ -1,0 +1,83 @@
+{
+  "common": {
+    "appName": "Jade Atelier",
+    "tagline": "Ein unabhängiges soziales Netzwerk für Macher, Freunde und Gemeinschaften.",
+    "loading": "Lädt…",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "post": "Posten",
+    "reply": "Antworten",
+    "search": "Suchen",
+    "send": "Senden",
+    "back": "Zurück",
+    "more": "Mehr",
+    "seeAll": "Alle anzeigen",
+    "retry": "Erneut versuchen",
+    "yes": "Ja",
+    "no": "Nein",
+    "confirm": "Bestätigen",
+    "language": "Sprache"
+  },
+  "nav": {
+    "home": "Start",
+    "explore": "Entdecken",
+    "friends": "Freunde",
+    "communities": "Communities",
+    "messages": "Nachrichten",
+    "notifications": "Mitteilungen",
+    "profile": "Profil",
+    "settings": "Einstellungen & Datenschutz",
+    "moderation": "Moderations-Queue",
+    "admin": "Admin-Bereich",
+    "signOut": "Abmelden",
+    "myProfile": "Mein Profil",
+    "newPost": "Neuer Beitrag",
+    "searchPlaceholder": "Personen, Communities, Beiträge suchen…"
+  },
+  "feed": {
+    "title": "Start",
+    "composerPlaceholder": "Teile etwas mit deinem Kreis…",
+    "empty": "Dein Feed ist leer. Folge Leuten oder tritt einer Community bei."
+  },
+  "auth": {
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "displayName": "Anzeigename",
+    "username": "Benutzername",
+    "continueWithGoogle": "Mit Google fortfahren",
+    "noAccount": "Noch kein Konto?",
+    "hasAccount": "Schon ein Konto?"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "account": "Konto",
+    "privacy": "Datenschutz",
+    "appearance": "Darstellung",
+    "language": "Sprache",
+    "languageDesc": "Wähle die in der App verwendete Sprache.",
+    "theme": "Design"
+  },
+  "profile": {
+    "followers": "Follower",
+    "following": "Folge ich",
+    "posts": "Beiträge",
+    "follow": "Folgen",
+    "unfollow": "Entfolgen",
+    "message": "Nachricht",
+    "block": "Blockieren",
+    "unblock": "Entsperren",
+    "editProfile": "Profil bearbeiten"
+  },
+  "rightRail": {
+    "welcomeTitle": "Willkommen bei Jade Atelier",
+    "welcomeBody": "Ein unabhängiges soziales Netzwerk für Macher, Freunde und Communities. Originalplattform — keine Drittdaten, kein verborgenes Tracking.",
+    "terms": "AGB",
+    "privacy": "Datenschutz",
+    "guidelines": "Richtlinien",
+    "about": "Über"
+  }
+}

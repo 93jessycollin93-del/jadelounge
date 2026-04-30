@@ -1,0 +1,83 @@
+{
+  "common": {
+    "appName": "Jade Atelier",
+    "tagline": "クリエイター、友人、コミュニティのための独立系ソーシャルネットワーク。",
+    "loading": "読み込み中…",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "edit": "編集",
+    "post": "投稿",
+    "reply": "返信",
+    "search": "検索",
+    "send": "送信",
+    "back": "戻る",
+    "more": "もっと",
+    "seeAll": "すべて表示",
+    "retry": "再試行",
+    "yes": "はい",
+    "no": "いいえ",
+    "confirm": "確認",
+    "language": "言語"
+  },
+  "nav": {
+    "home": "ホーム",
+    "explore": "発見",
+    "friends": "友達",
+    "communities": "コミュニティ",
+    "messages": "メッセージ",
+    "notifications": "通知",
+    "profile": "プロフィール",
+    "settings": "設定とプライバシー",
+    "moderation": "モデレーション",
+    "admin": "管理者",
+    "signOut": "ログアウト",
+    "myProfile": "マイプロフィール",
+    "newPost": "新規投稿",
+    "searchPlaceholder": "人、コミュニティ、投稿を検索…"
+  },
+  "feed": {
+    "title": "ホーム",
+    "composerPlaceholder": "あなたの輪に共有しましょう…",
+    "empty": "フィードは空です。誰かをフォローしたりコミュニティに参加しましょう。"
+  },
+  "auth": {
+    "signIn": "サインイン",
+    "signUp": "新規登録",
+    "email": "メール",
+    "password": "パスワード",
+    "displayName": "表示名",
+    "username": "ユーザー名",
+    "continueWithGoogle": "Googleで続ける",
+    "noAccount": "アカウントがありませんか？",
+    "hasAccount": "すでにアカウントをお持ちですか？"
+  },
+  "settings": {
+    "title": "設定",
+    "account": "アカウント",
+    "privacy": "プライバシー",
+    "appearance": "外観",
+    "language": "言語",
+    "languageDesc": "アプリ全体で使う言語を選択。",
+    "theme": "テーマ"
+  },
+  "profile": {
+    "followers": "フォロワー",
+    "following": "フォロー中",
+    "posts": "投稿",
+    "follow": "フォロー",
+    "unfollow": "フォロー解除",
+    "message": "メッセージ",
+    "block": "ブロック",
+    "unblock": "ブロック解除",
+    "editProfile": "プロフィール編集"
+  },
+  "rightRail": {
+    "welcomeTitle": "Jade Atelier へようこそ",
+    "welcomeBody": "クリエイター、友人、コミュニティのための独立系ソーシャル。第三者データなし、隠れた追跡なし。",
+    "terms": "利用規約",
+    "privacy": "プライバシー",
+    "guidelines": "ガイドライン",
+    "about": "概要"
+  }
+}
