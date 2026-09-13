@@ -1,0 +1,48 @@
+{
+  "$schema": "https://raw.githubusercontent.com/93jessycollin93-del/jacky/main/superstation/spec/pod.manifest.schema.json",
+  "kernel": "1.0.0",
+  "pod": {
+    "id": "sas.pod.jadelounge",
+    "name": "Jade Lounge",
+    "role": "knowledge",
+    "repo": "93jessycollin93-del/jadelounge",
+    "summary": "Community and media surface \u2014 feed, communities, messaging, moderation, video pipeline."
+  },
+  "provides": [
+    {
+      "id": "sas.content.feed",
+      "version": "1.0.0",
+      "title": "Community feed and conversations"
+    },
+    {
+      "id": "sas.content.media",
+      "version": "1.0.0",
+      "title": "Video assets \u2014 submit-video-job, mediaconvert-webhook"
+    },
+    {
+      "id": "sas.content.moderation",
+      "version": "1.0.0",
+      "title": "Moderation queue",
+      "privileged": true
+    }
+  ],
+  "requires": [
+    {
+      "id": "sas.route.ask",
+      "range": "1.x",
+      "optional": true
+    }
+  ],
+  "surfaces": [
+    {
+      "kind": "edge-function",
+      "base": "/functions/v1",
+      "note": "Supabase edge functions"
+    },
+    {
+      "kind": "static",
+      "base": "/",
+      "note": "Vite/React + shadcn"
+    }
+  ]
+}
